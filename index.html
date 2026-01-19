@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beni Papaya – Ruhamárka</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
+  }
+  header {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2em;
+    letter-spacing: 2px;
+  }
+  nav {
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hero {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #222;
+    color: #fff;
+  }
+  .hero h2 {
+    margin: 0;
+    font-size: 2em;
+  }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .product {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  .product:hover {
+    transform: scale(1.05);
+  }
+  .product img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  .product h3 {
+    margin: 10px 0 5px;
+  }
+  .product p {
+    margin: 0;
+    font-weight: bold;
+    color: #555;
+  }
+  footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Beni Papaya</h1>
+</header>
+
+<nav>
+  <a href="#home">Főoldal</a>
+  <a href="#products">Termékek</a>
+  <a href="#contact">Kapcsolat</a>
+</nav>
+
+<section class="hero" id="home">
+  <h2>Fedezd fel a Beni Papaya stílust!</h2>
+  <p>Minőségi, menő ruhák mindenki számára.</p>
+</section>
+
+<section class="products" id="products">
+  <div class="product">
+    <img src="https://via.placeholder.com/300x400?text=Polo+1" alt="Póló 1">
+    <h3>Póló 1</h3>
+    <p>5990 Ft</p>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/300x400?text=Polo+2" alt="Póló 2">
+    <h3>Póló 2</h3>
+    <p>6990 Ft</p>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/300x400?text=Hoodie" alt="Pulcsi">
+    <h3>Hoodie</h3>
+    <p>12990 Ft</p>
+  </div>
+</section>
+
+<footer id="contact">
+  <p>Kapcsolat: benipapaya@pelda.hu | Minden jog fenntartva © 2026</p>
+</footer>
+
+</body>
+</html>
