@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas AI</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0e0e0e;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+.hidden { display: none; }
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 15px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    background: #111;
+}
+
+#chat {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.msg {
+    margin: 10px 0;
+}
+.user { color: #4da6ff; }
+.atlas { color: #00ff9c; }
+
+footer {
+    display: flex;
+    padding: 10px;
+    background: #111;
+}
+input {
+    flex: 1;
+    padding: 10px;
+    background: #1a1a1a;
+    border: none;
+    color: white;
+}
+button {
+    padding: 10px 15px;
+    background: #00ff9c;
+    border: none;
+    cursor: pointer;
+}
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 40px;
+}
+.auth input {
+    padding: 12px;
+}
+.auth button {
+    padding: 12px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN / REGISTER -->
+<div id="auth" class="container">
+    <header>🔐 Atlas AI – Belépés</header>
+    <div class="auth">
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Jelszó">
+        <button onclick="register()">Regisztráció</button>
+        <button onclick="login()">Belépés</button>
+    </div>
+</div>
+
+<!-- CHAT -->
+<div id="app" class="container hidden">
+    <header>🤖 Atlas AI</header>
+    <div id="chat">
+        <div class="msg atlas">Atlas: Szia! Kérdezz bármit 😎</div>
+    </div>
+    <footer>
+        <input id="input" placeholder="Írj Atlasnak..." />
+        <button onclick="send()">Küld</button>
+    </footer>
+</div>
+
+<script>
+/* 🔑 IDE ÍRD BE AZ API KULCSOD */
+const OPENAI_API_KEY = "IDE_IRD_A_SAJAT_API_KULCSOD";
+
+/* LOGIN (LOCAL STORAGE) */
+function register() {
+    localStorage.setItem("atlas_user", email.value);
+    showApp();
+}
+
+function login() {
+    if (localStorage.getItem("atlas_user")) {
+        showApp();
+    } else {
+        alert("Nincs ilyen fiók 😬");
+    }
+}
+
+function showApp() {
+    document.getElementById("auth").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+}
+
+/* CHAT */
+async function send() {
+    const input = document.getElementById("input");
+    const chat = document.getElementById("chat");
+    const text = input.value;
+    if (!text) return;
+
+    chat.innerHTML += `<div class="msg user">Te: ${text}</div>`;
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+
+    chat.innerHTML += `<div class="msg atlas">Atlas: gondolkodom… 🤔</div>`;
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + OPENAI_API_KEY
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "Te egy segítőkész, magyar AI vagy, a neved Atlas." },
+                { role: "user", content: text }
+            ]
+        })
+    });
+
+    const data = await response.json();
+    const reply = data.choices[0].message.content;
+
+    chat.innerHTML += `<div class="msg atlas">Atlas: ${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
